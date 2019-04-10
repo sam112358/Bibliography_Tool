@@ -42,7 +42,9 @@ elements['id'] = iden[1]
 elements.pop('')
 
 names_split = elements['author'].split(' and ')
-for i in range(len(names_split)):
+first_author = names_split[0].split(', ')
+names_split.remove(names_split[0])
+for i in range(len(names_split) - 1):
     names_split[i] = names_split[i].split(', ')
     names_split[i][0], names_split[i][-1] = names_split[i][-1], names_split[i][0]
 elements['author'] = names_split
@@ -58,55 +60,60 @@ formatting = ''
 
 #1 Author
 names = elements['author']
+formatting += first_author[0] + ', ' + first_author[1] 
+if len(names) != 0:
+    formatting += ', '
 for i in names[:-1]:
-    first_name = i[0][:1]
+    first_name = i[0]
     last_name = i[1]
-    curr_name = last_name + ', ' + first_name + '., '
+    curr_name = first_name + ' ' + last_name + ', '
     formatting += curr_name
 
 
-first_name = names[-1][0][:1]
-last_name = names[-1][1]
-curr_name = '& ' + last_name + ', ' + first_name + ', '
+curr_name = names[-1].split(', ')
+first_name = curr_name[0]
+last_name = curr_name[1]
+curr_name = 'and ' + first_name + ' ' + last_name + '. '
 formatting += curr_name
 
 
-#2 Year
-if 'year' in elements:
-    formatting += '(' + elements['year'] + ')' + '. '
-
-#3 Title
+#2 Title
 if 'title' in elements:
-    formatting += elements['title'] + '. '
+    formatting += '"' + elements['title'] + '." '
 
 #4 Booktitle or Publisher
 try:
-    formatting += 'In ' + elements['booktitle'] + ' ' 
+    formatting += elements['booktitle'] + ' ' 
+except:
+    pass
+try:
+    formatting += elements['journal'] + ' '
 except:
     pass
 
 #5 Volume
 try:
-    formatting += ', ' + elements['volume']
+    formatting += elements['volume']
 except:
     pass
 
 #6 Number
 try:
-    formatting += '(' + elements['number'] + ')'
+    formatting += ' no. ' + elements['number'] + ' '
+except:
+    pass
+
+#6 Year
+try:
+    formatting += '(' + elements['year'] + ')' 
 except:
     pass
 
 #7 Pages
 try:
-    formatting += ', (pp. ' + elements['pages'] + '). '
+    formatting += ': ' + elements['pages']
 except:
     pass
 
-#8 Organization
-try:
-    formatting += elements['organization'] + '.'
-except:
-    pass
 
 print(formatting)

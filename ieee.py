@@ -49,64 +49,61 @@ elements['author'] = names_split
 
 print(elements)
 
-
 #Formatting
 
-#APA
+#MLA
 formatting = ''
 
-
-#1 Author
+#1 Name
 names = elements['author']
+
 for i in names[:-1]:
     first_name = i[0][:1]
     last_name = i[1]
-    curr_name = last_name + ', ' + first_name + '., '
+    curr_name = first_name + '. ' + last_name + ', '
     formatting += curr_name
-
 
 first_name = names[-1][0][:1]
 last_name = names[-1][1]
-curr_name = '& ' + last_name + ', ' + first_name + ', '
+curr_name = 'and ' + first_name + '. ' + last_name + ', '
 formatting += curr_name
 
+#2 Paper title
+formatting += '"' + elements['title'] + '," '
 
-#2 Year
+#3 Booktitle + Journal
+if 'booktitle' in elements:
+    formatting += elements['booktitle']
+
+if 'journal' in elements:
+    formatting += elements['journal']
+
+## Volume
+if 'volume' in elements:
+    formatting += ', vol. ' + elements['volume'] 
+
+## Number
+if 'number' in elements:
+    formatting += ', no. ' + elements['number']
+
+## Page 
+if 'pages' in elements:
+    if '-' in elements['pages']:
+        formatting += ', pp. ' + elements['pages']
+    else:
+        formatting += ', p. ' + elements['pages']
+
+## Year
 if 'year' in elements:
-    formatting += '(' + elements['year'] + ')' + '. '
+    formatting += ', ' + elements['year'] 
 
-#3 Title
-if 'title' in elements:
-    formatting += elements['title'] + '. '
+#4 Organisation or Publisher
+if 'organisation' in elements:
+    formatting += elements['organisation']
 
-#4 Booktitle or Publisher
-try:
-    formatting += 'In ' + elements['booktitle'] + ' ' 
-except:
-    pass
+if 'publisher' in elements:
+    formatting += elements['puiblisher']
 
-#5 Volume
-try:
-    formatting += ', ' + elements['volume']
-except:
-    pass
 
-#6 Number
-try:
-    formatting += '(' + elements['number'] + ')'
-except:
-    pass
-
-#7 Pages
-try:
-    formatting += ', (pp.' + elements['pages'] + '). '
-except:
-    pass
-
-#8 Organization
-try:
-    formatting += elements['organization'] + '.'
-except:
-    pass
 
 print(formatting)
