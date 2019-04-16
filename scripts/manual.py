@@ -1,3 +1,5 @@
+import os
+
 def manual():
     all_files = os.listdir('/data/Study/Major_Project/Bibliography_Tool/uploads')
     for curr_file in all_files:
