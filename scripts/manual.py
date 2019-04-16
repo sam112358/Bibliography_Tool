@@ -1,11 +1,12 @@
 import os
 
 def manual():
-    all_files = os.listdir('/data/Study/Major_Project/Bibliography_Tool/uploads')
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    all_files = os.listdir(dir_path + '/..' + '/uploads')
     for curr_file in all_files:
-        bibtex = open("uploads/" + i, "r+")
-
+        bibtex = open("../uploads/" + curr_file, "r+")
         file = bibtex.read()
+        
         elements = {}
         j = 0
 
