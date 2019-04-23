@@ -3,6 +3,7 @@ import os
 def mla():
     dir_path = os.path.dirname(os.path.realpath(__file__))
     all_files = os.listdir(dir_path + '/..' + '/uploads')
+
     for curr_file in all_files:
         bibtex = open("../uploads/" + curr_file, "r+")
         file = bibtex.read()
@@ -112,9 +113,5 @@ def mla():
 
 
         print(formatting)
-
-        #formatting += '"' + elements['title'] + '." ' #+ elements[booktitle] + '. ' + elements['organization']
-        #print(formatting)
-
-
+        
 mla()
